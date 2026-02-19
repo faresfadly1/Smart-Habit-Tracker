@@ -160,8 +160,8 @@ const App: React.FC = () => {
   return (
     <div className={`min-h-screen bg-slate-50 text-slate-900 pb-12`} dir={lang === 'ar' ? 'rtl' : 'ltr'}>
       <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-slate-200">
-        <div className="max-w-[1600px] mx-auto px-4 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-3">
+        <div className="max-w-[1600px] mx-auto px-3 sm:px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center gap-3 shrink-0">
             <div className="bg-emerald-600 p-2 rounded-xl text-white shadow-lg shadow-emerald-100">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -172,15 +172,15 @@ const App: React.FC = () => {
             </h1>
           </div>
 
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2 bg-slate-100 p-1 rounded-lg">
+          <div className="flex items-center gap-2 sm:gap-4 w-full sm:w-auto justify-between sm:justify-start">
+            <div className="flex items-center gap-1 sm:gap-2 bg-slate-100 p-1 rounded-lg flex-1 sm:flex-none">
               <button
                 onClick={() => setCurrentMonth(prev => (prev === 0 ? 11 : prev - 1))}
                 className="p-1.5 hover:bg-white rounded-md transition-all shadow-sm"
               >
                 <svg className={`w-4 h-4 ${lang === 'ar' ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"/></svg>
               </button>
-              <span className="px-3 text-sm font-semibold min-w-[100px] text-center">
+              <span className="px-2 sm:px-3 text-sm font-semibold min-w-[120px] sm:min-w-[150px] text-center">
                 {dict.monthNames[currentMonth]} {currentYear}
               </span>
               <button
@@ -193,7 +193,7 @@ const App: React.FC = () => {
 
             <button
               onClick={toggleLanguage}
-              className="px-4 py-1.5 text-sm font-bold border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors uppercase"
+              className="px-4 py-1.5 text-sm font-bold border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors uppercase min-w-[86px]"
             >
               {lang === 'en' ? 'العربية' : 'EN'}
             </button>
@@ -201,17 +201,17 @@ const App: React.FC = () => {
         </div>
       </header>
 
-      <main className="max-w-[1600px] mx-auto px-4 mt-8 grid grid-cols-1 lg:grid-cols-4 gap-8">
+      <main className="max-w-[1600px] mx-auto px-3 sm:px-4 mt-4 sm:mt-8 grid grid-cols-1 lg:grid-cols-4 gap-6 sm:gap-8">
         <div className="lg:col-span-3 space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex items-center justify-between">
+            <div className="bg-white p-4 sm:p-6 rounded-2xl shadow-sm border border-slate-100 flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-slate-500">{dict.totalHabits}</p>
                 <p className="text-2xl font-bold text-slate-800">{habits.length}</p>
               </div>
               <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 font-bold">#</div>
             </div>
-            <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex items-center justify-between">
+            <div className="bg-white p-4 sm:p-6 rounded-2xl shadow-sm border border-slate-100 flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-slate-500">{dict.completedToday}</p>
                 <p className="text-2xl font-bold text-slate-800">{calculateStats.completedToday}</p>
@@ -220,7 +220,7 @@ const App: React.FC = () => {
                 <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
               </div>
             </div>
-            <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-center gap-2">
+            <div className="bg-white p-4 sm:p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-center gap-2">
               <div className="flex justify-between items-center">
                 <p className="text-sm font-medium text-slate-500">{dict.completionRate}</p>
                 <span className="text-sm font-bold text-emerald-600">{calculateStats.monthlyCompletionRate}%</span>
@@ -235,11 +235,13 @@ const App: React.FC = () => {
           </div>
 
           <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden flex flex-col">
-            <div className="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
-              <h2 className="font-bold text-slate-700">{dict.monthNames[currentMonth]} Progress</h2>
+            <div className="p-3 sm:p-4 border-b border-slate-100 flex flex-col sm:flex-row justify-between sm:items-center gap-3 sm:gap-4 bg-slate-50/50">
+              <h2 className="font-bold text-slate-700">
+                {lang === 'ar' ? `${dict.monthNames[currentMonth]} - التقدم` : `${dict.monthNames[currentMonth]} Progress`}
+              </h2>
               <button
                 onClick={() => { setEditingHabit(null); setIsModalOpen(true); }}
-                className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-sm font-semibold transition-all shadow-md shadow-emerald-100 flex items-center gap-2"
+                className="w-full sm:w-auto px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-sm font-semibold transition-all shadow-md shadow-emerald-100 flex items-center justify-center gap-2"
               >
                 <span className="text-lg">+</span> {dict.addHabit}
               </button>
@@ -249,11 +251,11 @@ const App: React.FC = () => {
               <table className="w-full border-collapse">
                 <thead>
                   <tr className="bg-slate-50 text-slate-400 text-[10px] font-bold uppercase tracking-wider">
-                    <th className="p-4 text-start sticky left-0 z-20 bg-slate-50 min-w-[180px] border-e border-slate-200">
+                    <th className="p-3 sm:p-4 text-start md:sticky md:left-0 z-20 bg-slate-50 min-w-[120px] sm:min-w-[180px] border-e border-slate-200">
                       {lang === 'ar' ? 'العادة' : 'Habit'}
                     </th>
                     {generateDays.map(day => (
-                      <th key={day} className="p-2 min-w-[40px] border-b border-slate-100">
+                      <th key={day} className="p-2 min-w-[34px] sm:min-w-[40px] border-b border-slate-100">
                         {day}
                       </th>
                     ))}
@@ -270,7 +272,7 @@ const App: React.FC = () => {
                     habits.map(habit => (
                       <tr key={habit.id} className="hover:bg-slate-50/50 transition-colors group">
                         <td
-                          className="p-4 sticky left-0 z-10 bg-white group-hover:bg-slate-50/80 border-e border-slate-200 transition-colors"
+                          className="p-3 sm:p-4 md:sticky md:left-0 z-10 bg-white group-hover:bg-slate-50/80 border-e border-slate-200 transition-colors"
                           onClick={() => { setEditingHabit(habit); setIsModalOpen(true); }}
                         >
                           <div className="flex items-center gap-3 cursor-pointer">
@@ -292,7 +294,7 @@ const App: React.FC = () => {
                               <button
                                 onClick={() => toggleDay(dateStr, habit.id)}
                                 className={`
-                                  w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-200 border-2
+                                  w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center transition-all duration-200 border-2
                                   ${isDone
                                     ? `${habit.color} border-transparent text-white scale-100 shadow-sm`
                                     : 'bg-white border-slate-200 hover:border-slate-300 scale-90 opacity-60'
@@ -317,9 +319,9 @@ const App: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+          <div className="bg-white p-4 sm:p-6 rounded-2xl shadow-sm border border-slate-100">
             <h3 className="text-lg font-bold text-slate-800 mb-6">{dict.stats}</h3>
-            <div className="h-[250px] w-full">
+            <div className="h-[220px] sm:h-[250px] w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                   <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#64748b' }} />
