@@ -1,5 +1,7 @@
 # Smart Habit Tracker
 
+![Smart Habit Tracker Screenshot](./screenshot.png)
+
 Smart Habit Tracker is a self-built React + TypeScript app for tracking daily and weekly habits with clear monthly analytics.
 
 ## Features
